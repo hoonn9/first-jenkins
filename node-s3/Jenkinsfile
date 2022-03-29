@@ -10,6 +10,7 @@ pipeline {
       AWS_ACCESS_KEY_ID = credentials('awsAccessKeyId')
       AWS_SECRET_ACCESS_KEY = credentials('awsSecretAccessKey')
       AWS_DEFAULT_REGION = 'ap-northeast-2'
+      EMAIL_ADDRESS = ''
       HOME = '.' // Avoid npm root owned
     }
 
@@ -76,7 +77,7 @@ pipeline {
               success {
                   echo 'Successfully Cloned Repository'
 
-                  mail  to: 'abujirihelper@gmail.com',
+                  mail  to: "${env.EMAIL_ADDRESS}",
                         subject: "Deploy Frontend Success",
                         body: "Successfully deployed frontend!"
 
@@ -85,7 +86,7 @@ pipeline {
               failure {
                   echo 'I failed :('
 
-                  mail  to: 'abujirihelper@gmail.com',
+                  mail  to: "${env.EMAIL_ADDRESS}",
                         subject: "Failed Pipelinee",
                         body: "Something is wrong with deploy frontend"
               }
@@ -168,7 +169,7 @@ pipeline {
 
           post {
             success {
-              mail  to: 'abujirihelper@gmail.com',
+              mail  to: "${env.EMAIL_ADDRESS}",
                     subject: "Deploy Success",
                     body: "Successfully deployed!"
             }
